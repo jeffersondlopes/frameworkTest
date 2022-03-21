@@ -1,4 +1,4 @@
-package br.com.framework.frameworkpost.Domain;
+package br.com.framework.frameworkpost.domain;
 
 import lombok.Getter;
 import lombok.Setter;

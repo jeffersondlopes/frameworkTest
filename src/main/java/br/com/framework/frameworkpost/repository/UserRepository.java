@@ -1,6 +1,6 @@
 package br.com.framework.frameworkpost.repository;
 
-import br.com.framework.frameworkpost.Domain.User;
+import br.com.framework.frameworkpost.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

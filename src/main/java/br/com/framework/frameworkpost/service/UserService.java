@@ -1,4 +1,4 @@
-package br.com.framework.frameworkpost.Service;
+package br.com.framework.frameworkpost.service;
 
 import br.com.framework.frameworkpost.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
