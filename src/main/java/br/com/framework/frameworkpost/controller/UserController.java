@@ -1,10 +1,11 @@
 package br.com.framework.frameworkpost.controller;
 
+import br.com.framework.frameworkpost.domain.User;
 import br.com.framework.frameworkpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("users/")
@@ -14,8 +15,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public String listAll() {
-        return "framework";
+    public List<User> listAll() {
+        return userService.listAll();
+    }
+
+    @PostMapping
+    public User create(@RequestBody User user) {
+        return userService.create(user);
+    }
+
+    @PutMapping("/{id}")
+    public User update(@PathVariable Long id, @RequestBody  User user) {
+        return userService.update(id, user);
     }
 
 }

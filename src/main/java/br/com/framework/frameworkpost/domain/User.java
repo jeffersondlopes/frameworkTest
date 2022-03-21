@@ -1,5 +1,6 @@
 package br.com.framework.frameworkpost.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "users", indexes = {
         @Index(columnList = "email", name = "email_user_idx")
 })
+@SequenceGenerator(name = "user_id_seq", allocationSize = 1)
 public class User {
 
     @Id
@@ -18,7 +20,7 @@ public class User {
     @Column(updatable = false)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     private String email;
