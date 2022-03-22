@@ -4,8 +4,11 @@ import br.com.framework.frameworkpost.domain.PhotosPost;
 import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.model.input.PhotoPostInput;
 import br.com.framework.frameworkpost.repository.PhotoPostRepository;
+import br.com.framework.frameworkpost.service.FileStorageService.FileToStorage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -29,9 +32,8 @@ public class PhotoPostService {
         Post post = postsService.findById(postId);
         PhotosPost photosPost = buildPhotoPost(photoPostInput);
         photosPost.setPost(post);
-
-
-
+        FileToStorage fileToStorage = buildFileStorage(photoPostInput);
+        photStorageService.savePhoto(fileToStorage);
         return photoPostRepository.save(photosPost);
 
     }
@@ -39,16 +41,16 @@ public class PhotoPostService {
     private PhotosPost buildPhotoPost(PhotoPostInput photoPostInput){
         return PhotosPost.builder()
                 .description(photoPostInput.getDescription())
-                .nameFile(photoPostInput.getFile().getOriginalFilename())
+                .nameFile(photStorageService.generateNameFile(photoPostInput.getFile().getOriginalFilename()))
                 .contentType(photoPostInput.getFile().getContentType())
                 .size(photoPostInput.getFile().getSize())
                 .build();
     }
 
-    private FileStorageService.FileToStorage buildFileStorage(PhotoPostInput photoPostInput) {
+    private FileToStorage buildFileStorage(PhotoPostInput photoPostInput) {
         try {
             return FileStorageService.FileToStorage.builder()
-                    .nomeAquivo(photoPostInput.getFile().getOriginalFilename())
+                    .nomeAquivo(photStorageService.generateNameFile(photoPostInput.getFile().getOriginalFilename()))
                     .inputStream(photoPostInput.getFile().getInputStream())
                     .build();
         } catch (IOException e) {

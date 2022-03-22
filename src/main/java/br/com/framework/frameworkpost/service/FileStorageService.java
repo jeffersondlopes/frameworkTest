@@ -4,11 +4,18 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.io.InputStream;
+import java.util.UUID;
+
+import static java.util.UUID.*;
 
 public interface FileStorageService {
 
 	void savePhoto(FileToStorage fileToStorage);
-	
+
+	default String generateNameFile(String nomeOriginal) {
+		return randomUUID() + "_" + nomeOriginal;
+	}
+
 	@Builder
 	@Getter
 	class FileToStorage {

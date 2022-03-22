@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name = "photo_posts", indexes = {
         @Index(columnList = "post_id", name = "photo_post_id_idx")
 })
+@SequenceGenerator(name = "photo_post_id_seq", allocationSize = 1)
 public class PhotosPost {
 
     @Id
