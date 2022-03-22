@@ -22,25 +22,19 @@ public class PhotoPostController {
     }
 
 
-//    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public void atualizarFoto(@PathVariable Long postId, PhotoPostInput photoPostInput) {
-//
-//        var nomeArquivo = UUID.randomUUID().toString()
-//                + "_" + photoPostInput.getFile().getOriginalFilename();
-//
-//        var arquivoFoto = Path.of("/home/jefferson/jefferson/entrevistas/FrameWork/download-foto-test", nomeArquivo);
-//
-//        try {
-//            photoPostInput.getFile().transferTo(arquivoFoto);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//
-
-//    }
-
-
-
-
+        //    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+        //    public void atualizarFoto(@PathVariable Long postId, PhotoPostInput photoPostInput) {
+        //
+        //        var nomeArquivo = UUID.randomUUID().toString()
+        //                + "_" + photoPostInput.getFile().getOriginalFilename();
+        //
+        //        var arquivoFoto = Path.of("/home/jefferson/jefferson/entrevistas/FrameWork/download-foto-test", nomeArquivo);
+        //
+        //        try {
+        //            photoPostInput.getFile().transferTo(arquivoFoto);
+        //        } catch (Exception e) {
+        //            throw new RuntimeException(e);
+        //        }
+        //    }
 
 }
