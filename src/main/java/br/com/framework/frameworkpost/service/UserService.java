@@ -22,10 +22,14 @@ public class UserService {
     }
 
     public User update(Long id, User user) {
-        User userBd = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("Usuário %d não encontrado", id)));
+        User userBd = findById(id);
         userBd.setName(user.getName());
         return userRepository.save(userBd);
 
+    }
+
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException(String.format("Usuário %d não encontrado", userId)));
     }
 }
