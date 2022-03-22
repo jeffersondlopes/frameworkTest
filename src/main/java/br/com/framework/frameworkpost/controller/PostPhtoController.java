@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/posts/{postId/foto}")
+@RequestMapping("/posts/{postId}/foto")
 public class PostPhtoController {
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -21,10 +21,6 @@ public class PostPhtoController {
                 + "_" + photoPostInput.getFile().getOriginalFilename();
 
         var arquivoFoto = Path.of("/home/jefferson/jefferson/entrevistas/FrameWork/download-foto-test", nomeArquivo);
-
-        System.out.println(photoPostInput.getDescription());
-        System.out.println(arquivoFoto);
-        System.out.println(photoPostInput.getFile().getContentType());
 
         try {
             photoPostInput.getFile().transferTo(arquivoFoto);
