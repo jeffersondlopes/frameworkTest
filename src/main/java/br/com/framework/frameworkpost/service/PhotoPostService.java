@@ -58,4 +58,11 @@ public class PhotoPostService {
         }
     }
 
+    @Transactional
+    public void delete(Long postId, String fileName) {
+        PhotosPost photosPost = photoPostRepository.findByPostIdAndNameFile(postId, fileName)
+                .orElseThrow(() -> new RuntimeException("Arquivo Não encontrado"));
+        photoPostRepository.delete(photosPost);
+    }
+
 }

@@ -11,6 +11,7 @@ import static java.util.UUID.*;
 public interface FileStorageService {
 
 	void savePhoto(FileToStorage fileToStorage);
+	void remover(String nomeArquivo);
 
 	default String generateNameFile(String nomeOriginal) {
 		return randomUUID() + "_" + nomeOriginal;

@@ -24,6 +24,16 @@ public class PhotStorageService implements FileStorageService {
         }
     }
 
+    @Override
+    public void remover(String nomeArquivo) {
+        try {
+            Path arquivoPath = getFilePath(nomeArquivo);
+            Files.deleteIfExists(arquivoPath);
+        } catch (Exception e) {
+            throw new RuntimeException("Não foi possível excluir arquivo.", e);
+        }
+    }
+
     private Path getFilePath(String fileName) {
         return directorPhotos.resolve(Path.of(fileName));
     }

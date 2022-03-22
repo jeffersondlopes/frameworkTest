@@ -17,24 +17,15 @@ public class PhotoPostController {
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PhotosPost atualizarFoto(@PathVariable Long postId, PhotoPostInput photoPostInput) {
+    public PhotosPost savePhoto(@PathVariable Long postId, PhotoPostInput photoPostInput) {
         return photoPostService.save(postId, photoPostInput);
     }
 
+    @DeleteMapping("/{fileName}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePhoto(@PathVariable Long postId, @PathVariable String fileName){
+        photoPostService.delete(postId, fileName);
+    }
 
-        //    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-        //    public void atualizarFoto(@PathVariable Long postId, PhotoPostInput photoPostInput) {
-        //
-        //        var nomeArquivo = UUID.randomUUID().toString()
-        //                + "_" + photoPostInput.getFile().getOriginalFilename();
-        //
-        //        var arquivoFoto = Path.of("/home/jefferson/jefferson/entrevistas/FrameWork/download-foto-test", nomeArquivo);
-        //
-        //        try {
-        //            photoPostInput.getFile().transferTo(arquivoFoto);
-        //        } catch (Exception e) {
-        //            throw new RuntimeException(e);
-        //        }
-        //    }
 
 }
