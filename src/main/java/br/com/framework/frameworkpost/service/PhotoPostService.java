@@ -7,6 +7,8 @@ import br.com.framework.frameworkpost.repository.PhotoPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class PhotoPostService {
 
@@ -19,6 +21,7 @@ public class PhotoPostService {
         this.postsService = postsService;
     }
 
+    @Transactional
     public PhotosPost save(Long postId, PhotoPostInput photoPostInput) {
         Post post = postsService.findById(postId);
         PhotosPost photosPost = buildPhotoPost(photoPostInput);

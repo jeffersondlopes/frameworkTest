@@ -4,11 +4,9 @@ import br.com.framework.frameworkpost.domain.PhotosPost;
 import br.com.framework.frameworkpost.model.input.PhotoPostInput;
 import br.com.framework.frameworkpost.service.PhotoPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/posts/{postId}/foto")
@@ -18,6 +16,7 @@ public class PhotoPostController {
     private PhotoPostService photoPostService;
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public PhotosPost atualizarFoto(@PathVariable Long postId, PhotoPostInput photoPostInput) {
         return photoPostService.save(postId, photoPostInput);
     }
