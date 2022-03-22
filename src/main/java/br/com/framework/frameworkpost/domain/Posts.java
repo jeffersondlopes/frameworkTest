@@ -29,7 +29,7 @@ public class Posts {
     private LocalDateTime dateCreate;
 
     @Column(nullable = false)
-    private String comment;
+    private String description;
 
     @PrePersist
     private void prePersist(){
