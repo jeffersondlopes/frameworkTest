@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
         @Index(columnList = "post_id", name = "comment_post_id_idx"),
         @Index(columnList = "email,name", name = "comment_email_name_idx")
         })
-@SequenceGenerator(name = "user_id_seq", allocationSize = 1)
+@SequenceGenerator(name = "comments_id_seq", allocationSize = 1)
 public class CommentsPosts {
 
     @Id
@@ -37,9 +37,9 @@ public class CommentsPosts {
     @Column(updatable = false)
     private Long id;
 
-    private String email;
-
     private String name;
+    private String email;
+    private String comment;
 
     @Column(name = "date_created")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")

@@ -3,6 +3,7 @@ package br.com.framework.frameworkpost.controller;
 import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class PostsController {
     }
 
     @PostMapping("/user/{userid}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Post create(@PathVariable Long userid, @RequestBody Post post) {
         return postsService.create(userid, post);
     }

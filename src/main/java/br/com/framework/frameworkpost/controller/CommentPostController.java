@@ -3,13 +3,11 @@ package br.com.framework.frameworkpost.controller;
 import br.com.framework.frameworkpost.domain.CommentsPosts;
 import br.com.framework.frameworkpost.service.CommentsPostsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/comments-post")
+@RequestMapping("/comments")
 public class CommentPostController {
 
     private final CommentsPostsService commentsPostsService;
@@ -20,8 +18,10 @@ public class CommentPostController {
     }
 
     @PostMapping("/post/{postId}")
-    private void create(@PathVariable Long postId, CommentsPosts commentsPosts) {
+    @ResponseStatus(HttpStatus.CREATED)
+    private CommentsPosts create(@PathVariable Long postId, @RequestBody CommentsPosts commentsPosts) {
         commentsPostsService.create(postId, commentsPosts);
+        return commentsPosts;
     }
 
 }
