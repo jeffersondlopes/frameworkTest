@@ -7,11 +7,11 @@ import java.io.InputStream;
 
 public interface FileStorageService {
 
-	void savePhoto(NewPhoto novaFoto);
+	void savePhoto(FileToStorage fileToStorage);
 	
 	@Builder
 	@Getter
-	class NewPhoto {
+	class FileToStorage {
 		private String nomeAquivo;
 		private InputStream inputStream;
 	}

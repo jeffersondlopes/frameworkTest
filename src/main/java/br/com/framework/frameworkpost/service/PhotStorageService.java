@@ -14,10 +14,10 @@ public class PhotStorageService implements FileStorageService {
     private Path directorPhotos;
 
     @Override
-    public void savePhoto(NewPhoto newPhoto) {
+    public void savePhoto(FileToStorage fileToStorage) {
         try {
-            Path arquivoPath = getArquivoPath(newPhoto.getNomeAquivo());
-            FileCopyUtils.copy(newPhoto.getInputStream(),
+            Path arquivoPath = getArquivoPath(fileToStorage.getNomeAquivo());
+            FileCopyUtils.copy(fileToStorage.getInputStream(),
                     Files.newOutputStream(arquivoPath));
         } catch (Exception e) {
             throw new RuntimeException("Não foi possível armazenar arquivo.", e);
