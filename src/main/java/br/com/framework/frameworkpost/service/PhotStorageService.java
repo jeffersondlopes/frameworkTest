@@ -16,7 +16,7 @@ public class PhotStorageService implements FileStorageService {
     @Override
     public void savePhoto(FileToStorage fileToStorage) {
         try {
-            Path arquivoPath = getArquivoPath(fileToStorage.getNomeAquivo());
+            Path arquivoPath = getFilePath(fileToStorage.getNomeAquivo());
             FileCopyUtils.copy(fileToStorage.getInputStream(),
                     Files.newOutputStream(arquivoPath));
         } catch (Exception e) {
@@ -24,8 +24,8 @@ public class PhotStorageService implements FileStorageService {
         }
     }
 
-    private Path getArquivoPath(String nomeArquivo) {
-        return directorPhotos.resolve(Path.of(nomeArquivo));
+    private Path getFilePath(String fileName) {
+        return directorPhotos.resolve(Path.of(fileName));
     }
 
 }
