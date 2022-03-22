@@ -1,6 +1,6 @@
 package br.com.framework.frameworkpost.controller;
 
-import br.com.framework.frameworkpost.domain.Posts;
+import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +19,13 @@ public class PostsController {
     }
 
     @GetMapping("/user/{userid}")
-    public List<Posts> listAll(@PathVariable Long userid){
+    public List<Post> listAll(@PathVariable Long userid){
         return postsService.listAll(userid);
     }
 
     @PostMapping("/user/{userid}")
-    public Posts create(@PathVariable Long userid, @RequestBody Posts posts) {
-        return postsService.create(userid, posts);
+    public Post create(@PathVariable Long userid, @RequestBody Post post) {
+        return postsService.create(userid, post);
     }
 
 }

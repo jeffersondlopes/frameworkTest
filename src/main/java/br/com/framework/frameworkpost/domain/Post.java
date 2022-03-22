@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
         @Index(columnList = "user_id", name = "user_id_idx")
 })
 @SequenceGenerator(name = "user_id_seq", allocationSize = 1)
-public class Posts {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_id_seq")

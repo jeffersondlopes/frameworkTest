@@ -55,6 +55,6 @@ public class CommentsPosts {
             @JoinColumn(name = "post_id", referencedColumnName = "id")
     }, foreignKey = @ForeignKey(name = "posts_fk"))
     @JsonIgnore
-    private Posts post;
+    private Post post;
 
 }
