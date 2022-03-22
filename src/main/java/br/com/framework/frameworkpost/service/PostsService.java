@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class PostsService {
@@ -27,5 +28,7 @@ public class PostsService {
         return postRepository.save(posts);
     }
 
-
+    public List<Posts> listAll(Long userId) {
+        return postRepository.findAllByUsersId(userId);
+    }
 }

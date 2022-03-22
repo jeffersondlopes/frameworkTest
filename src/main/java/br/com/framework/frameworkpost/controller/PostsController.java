@@ -5,6 +5,8 @@ import br.com.framework.frameworkpost.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/posts")
 public class PostsController {
@@ -14,6 +16,11 @@ public class PostsController {
     @Autowired
     public PostsController(PostsService postsService) {
         this.postsService = postsService;
+    }
+
+    @GetMapping("/user/{userid}")
+    public List<Posts> listAll(@PathVariable Long userid){
+        return postsService.listAll(userid);
     }
 
     @PostMapping("/user/{userid}")
