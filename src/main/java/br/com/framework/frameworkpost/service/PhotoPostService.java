@@ -39,7 +39,7 @@ public class PhotoPostService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        photStorageService.savePhoto(fileToStorage);
+        photStorageService.save(fileToStorage);
         return photoPostRepository.save(photosPost);
 
     }
@@ -64,8 +64,13 @@ public class PhotoPostService {
     public void delete(Long postId, String fileName) {
         PhotosPost photosPost = photoPostRepository.findByPostIdAndNameFile(postId, fileName)
                 .orElseThrow(() -> new RuntimeException("Arquivo Não encontrado"));
-         photoPostRepository.delete(photosPost);
-        photStorageService.remover(fileName);
+        photoPostRepository.delete(photosPost);
+        photStorageService.remove(fileName);
     }
 
+    public InputStream getFile(Long postId, String fileName) {
+        PhotosPost photosPost = photoPostRepository.findByPostIdAndNameFile(postId, fileName)
+                .orElseThrow(() -> new RuntimeException("Arquivo Não encontrado"));
+        return photStorageService.getFile(photosPost.getNameFile());
+    }
 }
