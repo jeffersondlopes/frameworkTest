@@ -15,6 +15,7 @@
 	<description>Post for blog framework</description>
 	<properties>
 		<java.version>11</java.version>
+		<oauth2-oidc-sdk.version>6.21.2</oauth2-oidc-sdk.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,6 +47,19 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>
+				spring-boot-starter-oauth2-resource-server
+			</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>oauth2-oidc-sdk</artifactId>
+			<version>${oauth2-oidc-sdk.version}</version>
 		</dependency>
 
 	</dependencies>
