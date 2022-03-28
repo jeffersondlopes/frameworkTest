@@ -1,8 +1,9 @@
-package br.com.framework.frameworkpost.security;
+package br.com.framework.frameworkpost.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -15,14 +16,29 @@ import javax.crypto.spec.SecretKeySpec;
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-            .and()
-                .cors().and()
-                .oauth2ResourceServer()
-                .jwt();
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/users/**","/users");
     }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+            .anyRequest().authenticated()
+            .and()
+            .cors().and()
+            .oauth2ResourceServer().opaqueToken();
+    }
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .anyRequest().authenticated()
+//            .and()
+//                .cors().and()
+//                .oauth2ResourceServer()
+//                .jwt();
+//    }
 
     @Bean
     public JwtDecoder jwtDecoder() {
