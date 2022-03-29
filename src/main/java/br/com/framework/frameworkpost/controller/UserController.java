@@ -1,5 +1,6 @@
 package br.com.framework.frameworkpost.controller;
 
+import br.com.framework.frameworkpost.config.security.FrameWorkSecurity;
 import br.com.framework.frameworkpost.domain.User;
 import br.com.framework.frameworkpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FrameWorkSecurity frameWorkSecurity;
+
     @GetMapping
     public List<User> listAll() {
         return userService.listAll();
@@ -23,6 +27,7 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody User user) {
+        System.out.println(frameWorkSecurity.getUserIdJwt());
         return userService.create(user);
     }
 

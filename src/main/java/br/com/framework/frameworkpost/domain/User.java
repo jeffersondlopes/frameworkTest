@@ -20,8 +20,8 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String userName;
     private String email;
+    private String userName;
     private String password;
 
 }
