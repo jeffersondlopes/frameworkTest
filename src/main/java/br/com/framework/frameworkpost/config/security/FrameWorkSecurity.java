@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 public class FrameWorkSecurity {
 
 	public Authentication getAuthentication() {
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		return authentication;
+		return SecurityContextHolder.getContext().getAuthentication();
 	}
 	
 	public String getUserIdJwt() {
