@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findAllByUsersId(Long userId);
+    List<Post> findAllByUserId(Long userId);
 
     @Query("select p From Post p " +
-           " inner join fetch p.users u" +
+           " inner join fetch p.user u" +
            " where p.active = true" +
             "  and p.id = :postId" +
             "  and u.email = :email")

@@ -31,14 +31,14 @@ public class PostsService {
     @Transactional
     public Post create(Long userId, Post post) {
         User user = userService.findById(userId);
-        post.setUsers(user);
+        post.setUser(user);
         return postRepository.save(post);
     }
 
     @Transactional
     public Post create(Post post) {
         User user = userService.findByEmail(securityService.getUserIdJwt());
-        post.setUsers(user);
+        post.setUser(user);
         return postRepository.save(post);
     }
 
@@ -52,7 +52,7 @@ public class PostsService {
     }
 
     public List<Post> listAll(Long userId) {
-        return postRepository.findAllByUsersId(userId);
+        return postRepository.findAllByUserId(userId);
     }
 
     public Post findById(Long postId) {

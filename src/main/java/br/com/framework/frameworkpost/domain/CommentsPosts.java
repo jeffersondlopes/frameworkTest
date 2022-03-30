@@ -57,4 +57,11 @@ public class CommentsPosts {
     @JsonIgnore
     private Post post;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns(value = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")
+    }, foreignKey = @ForeignKey(name = "comment_user_fk"))
+    @JsonIgnore
+    private User user;
+
 }

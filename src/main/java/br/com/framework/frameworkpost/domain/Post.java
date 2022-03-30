@@ -43,8 +43,8 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns(value = {
             @JoinColumn(name = "user_id", referencedColumnName = "id")
-    }, foreignKey = @ForeignKey(name = "user_fk"))
+    }, foreignKey = @ForeignKey(name = "post_user_fk"))
     @JsonIgnore
-    private User users;
+    private User user;
 
 }
