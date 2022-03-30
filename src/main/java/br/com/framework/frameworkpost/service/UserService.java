@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private static String USER_BT_EMAIL_ALREADY_EXISTS = "Usuário/E-mail %s/%s já cadastrado.";
+    private static String USER_BY_EMAIL_ALREADY_EXISTS = "Usuário/E-mail %s/%s já cadastrado.";
 
     @Autowired
     private UserRepository userRepository;
@@ -26,28 +26,22 @@ public class UserService {
     }
 
     public User create(User user)  {
-
-        Boolean aBoolean = userRepository.existsByEmail(user.getEmail());
-
         if (!userRepository.existsByEmail(user.getEmail())){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
         } else {
-            throw new BusinessException(String.format(USER_BT_EMAIL_ALREADY_EXISTS,user.getUserName(), user.getEmail()));
+            throw new BusinessException(String.format(USER_BY_EMAIL_ALREADY_EXISTS,user.getUserName(), user.getEmail()));
         }
-
-
     }
 
     public User update(Long id, User user) {
         User userBd = findById(id);
         userBd.setUserName(user.getUserName());
         return userRepository.save(userBd);
-
     }
 
     public User findById(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException(String.format("Usuário %d não encontrado", userId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Usuário %d não encontrado", userId)));
     }
 }

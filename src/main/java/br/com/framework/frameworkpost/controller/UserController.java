@@ -16,9 +16,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private FrameWorkSecurity frameWorkSecurity;
-
     @GetMapping
     public List<User> listAll() {
         return userService.listAll();
