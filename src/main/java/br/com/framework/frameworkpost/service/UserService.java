@@ -1,6 +1,7 @@
 package br.com.framework.frameworkpost.service;
 
 import br.com.framework.frameworkpost.domain.User;
+import br.com.framework.frameworkpost.domain.excpeiton.NotFoundException;
 import br.com.framework.frameworkpost.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +22,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User create(User user) {
+    public User create(User user) throws Exception {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+
     }
 
     public User update(Long id, User user) {
