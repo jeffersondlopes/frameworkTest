@@ -1,5 +1,6 @@
 package br.com.framework.frameworkpost.config.exceptionhandler;
 
+import br.com.framework.frameworkpost.domain.excpeiton.BusinessException;
 import br.com.framework.frameworkpost.domain.excpeiton.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> tratarEntidadeNaoEncontradaException(Exception ex, WebRequest request) {
 		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+		ex.printStackTrace();
 		return handleExceptionInternal(ex, MSG_ERRO_GENERICA_USUARIO_FINAL, new HttpHeaders(),status, request);
 	}
 
@@ -32,6 +34,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 				.message(e.getMessage()).build();
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
 				.body(problema);
+	}
+
+	@ExceptionHandler(BusinessException.class)
+	public ResponseEntity<?> handleBusinessException(BusinessException ex, WebRequest request) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		MessageProblem problema = MessageProblem.builder()
+				.status(status.value())
+				.dateTime(LocalDateTime.now())
+				.message(ex.getMessage()).build();
+
+		return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(),status, request);
 	}
 
 	@Override

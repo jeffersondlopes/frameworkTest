@@ -26,8 +26,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User create(@RequestBody User user) throws Exception {
-        System.out.println(frameWorkSecurity.getUserIdJwt());
+    public User create(@RequestBody User user)  {
         return userService.create(user);
     }
 

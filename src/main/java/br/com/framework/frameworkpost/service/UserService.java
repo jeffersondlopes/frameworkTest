@@ -1,6 +1,7 @@
 package br.com.framework.frameworkpost.service;
 
 import br.com.framework.frameworkpost.domain.User;
+import br.com.framework.frameworkpost.domain.excpeiton.BusinessException;
 import br.com.framework.frameworkpost.domain.excpeiton.NotFoundException;
 import br.com.framework.frameworkpost.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private static String USER_BT_EMAIL_ALREADY_EXISTS = "Usuário/E-mail %s/%s já cadastrado.";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -22,9 +25,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User create(User user) throws Exception {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public User create(User user)  {
+
+        Boolean aBoolean = userRepository.existsByEmail(user.getEmail());
+
+        if (!userRepository.existsByEmail(user.getEmail())){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepository.save(user);
+        } else {
+            throw new BusinessException(String.format(USER_BT_EMAIL_ALREADY_EXISTS,user.getUserName(), user.getEmail()));
+        }
+
 
     }
 
