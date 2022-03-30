@@ -36,4 +36,10 @@ public class PostsController {
         return postsService.create(post);
     }
 
+    @PostMapping("/user/{postId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void createJwt(@PathVariable Long postId, @RequestBody Post post) {
+        postsService.delete(postId);
+    }
+
 }

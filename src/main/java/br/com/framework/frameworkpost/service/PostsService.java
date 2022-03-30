@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostsService {
@@ -39,6 +40,11 @@ public class PostsService {
         return postRepository.save(post);
     }
 
+    @Transactional
+    public void delete(Long postId) {
+        checkOwerPost(postId);
+    }
+
     public List<Post> listAll(Long userId) {
         return postRepository.findAllByUsersId(userId);
     }
@@ -47,4 +53,11 @@ public class PostsService {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException(String.format(POST_NOT_FOUD,postId)));
     }
+
+    private void checkOwerPost(Long postId){
+        User user = userService.findByEmail(securityService.getUserIdJwt());
+        Optional<Post> post = postRepository.findyPostByOwnerEmail(postId, user.getEmail());
+        System.out.println(post.get());
+    }
+
 }
