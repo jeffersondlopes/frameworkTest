@@ -2,6 +2,7 @@ package br.com.framework.frameworkpost.service;
 
 import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.domain.User;
+import br.com.framework.frameworkpost.domain.excpeiton.BusinessException;
 import br.com.framework.frameworkpost.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class PostsService {
     private final PostRepository postRepository;
     private final SecurityService securityService;
 
-    private static final String POST_NOT_FOUD = "Post %d não encontrado.";
+    private static final String POST_NOT_FOUD = "Post %d não encontrado";
+    private static final String POST_NOT_FOUD_BY_OWNER = "Post %d não pertence ao usuário %s";
 
     @Autowired
     public PostsService(UserService userService, PostRepository postRepository, SecurityService securityService) {
@@ -42,7 +44,9 @@ public class PostsService {
 
     @Transactional
     public void delete(Long postId) {
-        checkOwerPost(postId);
+        User user = userService.findByEmail(securityService.getUserIdJwt());
+        Optional<Post> post = checkOwerPost(postId, user.getEmail());
+        post.orElseThrow(() -> new BusinessException(String.format(POST_NOT_FOUD_BY_OWNER,postId, user.getEmail())));
     }
 
     public List<Post> listAll(Long userId) {
@@ -54,10 +58,8 @@ public class PostsService {
                 .orElseThrow(() -> new RuntimeException(String.format(POST_NOT_FOUD,postId)));
     }
 
-    private void checkOwerPost(Long postId){
-        User user = userService.findByEmail(securityService.getUserIdJwt());
-        Optional<Post> post = postRepository.findyPostByOwnerEmail(postId, user.getEmail());
-        System.out.println(post.get());
+    private Optional<Post> checkOwerPost(Long postId, String email) {
+        return postRepository.findyPostByOwnerEmail(postId, email);
     }
 
 }
