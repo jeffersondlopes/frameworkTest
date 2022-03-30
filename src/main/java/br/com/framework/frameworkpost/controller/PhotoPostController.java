@@ -16,8 +16,11 @@ import java.io.InputStream;
 @RequestMapping("/posts/{postId}/foto")
 public class PhotoPostController {
 
-    @Autowired
-    private PhotoPostService photoPostService;
+    private final PhotoPostService photoPostService;
+
+    public PhotoPostController(PhotoPostService photoPostService) {
+        this.photoPostService = photoPostService;
+    }
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
