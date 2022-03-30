@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "posts", indexes = {
         @Index(columnList = "user_id", name = "user_id_idx")
 })
-@SequenceGenerator(name = "user_id_seq", allocationSize = 1)
+@SequenceGenerator(name = "post_id_seq", allocationSize = 1)
 public class Post {
 
     @Id
@@ -31,9 +31,13 @@ public class Post {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private boolean active;
+
     @PrePersist
     private void prePersist(){
         this.dateCreate = LocalDateTime.now();
+        this.active = true;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

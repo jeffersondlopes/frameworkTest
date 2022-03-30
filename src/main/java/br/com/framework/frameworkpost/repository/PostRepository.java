@@ -13,7 +13,8 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("select p From Post p " +
            " inner join fetch p.users u" +
-           " where p.id = :postId" +
+           " where p.active = true" +
+            "  and p.id = :postId" +
             "  and u.email = :email")
     Optional<Post> findPostByOwnerEmail(Long postId, String email);
 

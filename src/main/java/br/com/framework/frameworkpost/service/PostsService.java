@@ -19,7 +19,7 @@ public class PostsService {
     private final PostRepository postRepository;
     private final SecurityService securityService;
 
-    private static final String POST_NOT_FOUD = "Post %d não encontrado";
+    private static final String POST_NOT_FOUD = "Post %d não encontrado ou desativado";
     private static final String POST_NOT_FOUD_BY_OWNER = "Post %d não pertence ao usuário %s";
 
     @Autowired
@@ -46,8 +46,10 @@ public class PostsService {
     @Transactional
     public void delete(Long postId) {
         User user = userService.findByEmail(securityService.getUserIdJwt());
-        Optional<Post> post = checkOwerPost(postId, user.getEmail());
-        post.orElseThrow(() -> new BusinessException(String.format(POST_NOT_FOUD_BY_OWNER,postId, user.getEmail())));
+        Optional<Post> optionalPost = checkOwerPost(postId, user.getEmail());
+        optionalPost.orElseThrow(() -> new NotFoundException(String.format(POST_NOT_FOUD,postId)));
+        Post post = optionalPost.get();
+        post.setActive(false);
     }
 
     public List<Post> listAll(Long userId) {
