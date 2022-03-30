@@ -1,6 +1,7 @@
 package br.com.framework.frameworkpost.service;
 
 import br.com.framework.frameworkpost.domain.PhotosPost;
+import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.domain.User;
 import br.com.framework.frameworkpost.model.input.PhotoPostInput;
 import br.com.framework.frameworkpost.repository.PhotoPostRepository;
@@ -75,9 +76,10 @@ public class PhotoPostService {
     }
 
     private PhotosPost generatePhotoPost(Long postId, PhotoPostInput photoPostInput){
-        postsService.findById(postId);
+        Post post = postsService.findById(postId);
         PhotosPost photosPost = buildPhotoPost(photoPostInput);
         User user = securityService.getUser();
+        photosPost.setPost(post);
         photosPost.setUser(user);
         return photosPost;
     }
