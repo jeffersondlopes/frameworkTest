@@ -59,8 +59,8 @@ public class PostsService {
                 .orElseThrow(() -> new NotFoundException(String.format(POST_NOT_FOUD,postId)));
     }
 
-    private Optional<Post> checkOwerPost(Long postId, String email) {
-        return postRepository.findyPostByOwnerEmail(postId, email);
+    Optional<Post> checkOwerPost(Long postId, String email) {
+        return postRepository.findPostByOwnerEmail(postId, email);
     }
 
 }
