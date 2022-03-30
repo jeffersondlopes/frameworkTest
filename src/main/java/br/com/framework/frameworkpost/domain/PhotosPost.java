@@ -34,4 +34,11 @@ public class PhotosPost {
     }, foreignKey = @ForeignKey(name = "photo_post_fk"))
     @JsonIgnore
     private Post post;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns(value = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")
+    }, foreignKey = @ForeignKey(name = "photo_post_user_fk"))
+    @JsonIgnore
+    private User user;
 }

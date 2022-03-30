@@ -3,6 +3,7 @@ package br.com.framework.frameworkpost.service;
 import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.domain.User;
 import br.com.framework.frameworkpost.domain.excpeiton.BusinessException;
+import br.com.framework.frameworkpost.domain.excpeiton.NotFoundException;
 import br.com.framework.frameworkpost.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class PostsService {
 
     public Post findById(Long postId) {
         return postRepository.findById(postId)
-                .orElseThrow(() -> new RuntimeException(String.format(POST_NOT_FOUD,postId)));
+                .orElseThrow(() -> new NotFoundException(String.format(POST_NOT_FOUD,postId)));
     }
 
     private Optional<Post> checkOwerPost(Long postId, String email) {
