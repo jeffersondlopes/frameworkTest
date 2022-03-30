@@ -2,7 +2,6 @@ package br.com.framework.frameworkpost.service;
 
 import br.com.framework.frameworkpost.domain.Post;
 import br.com.framework.frameworkpost.domain.User;
-import br.com.framework.frameworkpost.domain.excpeiton.BusinessException;
 import br.com.framework.frameworkpost.domain.excpeiton.NotFoundException;
 import br.com.framework.frameworkpost.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
