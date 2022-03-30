@@ -1,6 +1,5 @@
 package br.com.framework.frameworkpost.controller;
 
-import br.com.framework.frameworkpost.config.security.FrameWorkSecurity;
 import br.com.framework.frameworkpost.domain.User;
 import br.com.framework.frameworkpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

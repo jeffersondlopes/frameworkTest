@@ -14,12 +14,8 @@ public class PhotStorageService implements FileStorageService {
     @Value("${framework.storage.local.diretorio-fotos}")
     private Path directorPhotos;
 
-    @Value("#{2 > 1 ? 'a' : 'b'}")
-    private String property;
-
     @Override
     public void save(FileToStorage fileToStorage) {
-        System.out.println(property);
         try {
             Path arquivoPath = getFilePath(fileToStorage.getNomeAquivo());
             FileCopyUtils.copy(fileToStorage.getInputStream(),

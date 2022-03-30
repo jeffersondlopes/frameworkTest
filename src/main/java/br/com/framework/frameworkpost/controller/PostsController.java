@@ -30,4 +30,10 @@ public class PostsController {
         return postsService.create(userid, post);
     }
 
+    @PostMapping("/user/")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Post createJwt(@RequestBody Post post) {
+        return postsService.create(post);
+    }
+
 }
