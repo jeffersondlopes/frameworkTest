@@ -17,7 +17,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   public void configure(WebSecurity web) {
-    web.ignoring().antMatchers("/users/");
+    web.ignoring().antMatchers("/users/","/comments/post/*");
   }
 
   @Override

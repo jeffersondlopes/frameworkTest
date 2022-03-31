@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class CommentsPostsService {
@@ -39,4 +40,7 @@ public class CommentsPostsService {
         commentsPosts.setPost(post);
     }
 
+    public List<CommentsPosts> findAllByPostId(Long postId) {
+        return commentsPostsRepository.findAllByPostId(postId);
+    }
 }
