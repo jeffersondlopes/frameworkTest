@@ -26,6 +26,12 @@ public class CommentPostController {
         return commentsPosts;
     }
 
+    @DeleteMapping("/{commentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    private void deleteComment(@PathVariable Long commentId) {
+        commentsPostsService.deleteById(commentId);
+    }
+
     @GetMapping("/post/{postId}")
     @ResponseStatus(HttpStatus.CREATED)
     private List<CommentsPosts> listAllCommentsByPostId(@PathVariable Long postId) {
