@@ -1,5 +1,6 @@
 package br.com.framework.frameworkpost.service;
 
+import br.com.framework.frameworkpost.config.kafka.KafkaClient;
 import br.com.framework.frameworkpost.domain.User;
 import br.com.framework.frameworkpost.domain.excpeiton.BusinessException;
 import br.com.framework.frameworkpost.domain.excpeiton.NotFoundException;
@@ -13,13 +14,18 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private static String USER_BY_EMAIL_ALREADY_EXISTS = "Usuário/E-mail %s/%s já cadastrado.";
+    private static final String USER_BY_EMAIL_ALREADY_EXISTS = "Usuário/E-mail %s/%s já cadastrado.";
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final KafkaClient kafkaClient;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, KafkaClient kafkaClient) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.kafkaClient = kafkaClient;
+    }
 
     public List<User> listAll(){
         return userRepository.findAll();
@@ -28,7 +34,9 @@ public class UserService {
     public User create(User user)  {
         if (!userRepository.existsByEmail(user.getEmail())){
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            return userRepository.save(user);
+            User newUser = userRepository.save(user);
+            kafkaClient.sendMessage(newUser);
+            return user;
         } else {
             throw new BusinessException(String.format(USER_BY_EMAIL_ALREADY_EXISTS,user.getUserName(), user.getEmail()));
         }
